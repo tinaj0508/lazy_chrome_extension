@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>XXX小幫手</title>
+    <style>
+        body {
+            width: 1000px;
+            height: auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            margin-left: 320px; 
+        }
+
+        .block {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .block h3 {
+            margin-top: 0;
+        }
+
+        .block textarea,
+        .block select,
+        .block input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .block button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .block button:hover {
+            background-color: #45a049;
+        }
+
+        .response {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-style: italic;
+            color: gray;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 280px;
+        }
+
+        #workArea {
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+
+        }
+        .sidebar2 {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 280px;
+        }
+
+        #workArea2 {
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>✅工作區</h2>
+        <div id="workArea">
+            <textarea id="workAreaText" rows="20" cols="20" placeholder="請在此處貼上文字"></textarea><br>
+            <button id="copyTextBtn">複製文字</button>
+            <button id="downloadTextBtn">下載文字</button>
+        </div>
+    </div>
+    <div class="sidebar2">
+        <h2>✅自填指令區</h2>
+        <div id="workArea2">
+            <textarea id="systemPromptText" rows="15" cols="20" placeholder="請在此處填入系統指令(System Prompt)"></textarea><br>
+            <textarea id="userPromptText" rows="15" cols="20" placeholder="請在此處填入使用者指令(User Prompt)"></textarea><br>
+            <button id="generateCustomReplyBtn">生成自訂回覆</button>
+            <div id="customResponse" class="response"></div>
+            <div id="loadingCustom" class="loading">載入中...</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>🔞㊙️⛔🚫☢️XXX小幫手🔞㊙️⛔🚫☢️</h1>
+
+        <h4><span style="background-color: #fff01f"> 省錢小提醒：生成回覆時，請不要多次點擊，等它一下 </span></h4>
+
+        <h2>✅Part1: 回覆生成器</h2>
+        <div class="block">
+            <h3>📌甲.請填入XXX內容</h3>
+            <textarea id="userTextInputA" placeholder='例如：解密一位曾XXX'></textarea>
+
+            <h3>選擇回覆類型:</h3>
+            <select id="optionSelectA">
+                <option value="A">分析XXX內容關鍵詞</option>
+                <option value="B">XXX內容解構：內外部分析格式</option>
+                <option value="G">XXX內容建議（user needs）</option>
+            </select>
+            <button id="generateButtonA">生成回覆</button>
+            <div id="responseA" class="response"></div>
+            <div id="loadingA" class="loading">載入中...</div>
+        </div>
+
+        <div class="block">
+            <h3>📌乙.請填入XXX關注度變化</h3>
+            <textarea id="userTextInputB" placeholder='請將Part2生成結果貼進來。'></textarea>
+            <h3>選擇回覆類型:</h3>
+            <select id="optionSelectB">
+                <option value="C">XXX關注度變化解釋生成</option>
+                <option value="E">XXX關注度變化解釋生成</option>
+            </select>
+            <button id="generateButtonB">生成回覆</button>
+            <div id="responseB" class="response"></div>
+            <div id="loadingB" class="loading">載入中...</div>
+        </div>
+
+        <div class="block">
+            <h3>📌丙.請填入google trend搜尋熱度變化</h3>
+            <textarea id="userTextInputC" placeholder='請填入關鍵詞與搜尋熱度，例如：
+        【第一組】
+        黑幫 48
+        酒店 文化 1
+        黑道 33
+        酒店 工作 1
+        台北中山區 58
+
+        【第二組】
+        浪子回頭 12
+        金盆洗手 0
+        退出江湖 0
+        出獄 21
+        更生人 9'></textarea>
+            <h3>選擇回覆類型:</h3>
+            <select id="optionSelectC">
+                <option value="D">google trend檢索結果解釋生成</option>
+                <option value="F">google trend檢索結果解釋生成（user needs）</option>
+            </select>
+            <button id="generateButtonC">生成回覆</button>
+            <div id="responseC" class="response"></div>
+            <div id="loadingC" class="loading">載入中...</div>
+        </div>
+
+        <h2>✅Part2: XXX關注度變化計算</h2>
+        <div class="block">
+            <h3>📌輸入策展面向</h3>
+            <label for="label_input">輸入策展面向json：</label>
+            <textarea id="label_input" placeholder='例如：{"theme_name": " "360",....}'></textarea>
+
+            <h3>📌計算關注度變化</h3>
+            <label for="res90-input">輸入XXX關注度數字：</label>
+            <input type="text" id="res90-input" placeholder="例如：87, 7, 21, 5, 9, 0, 0, 3, 0, 0">
+            <label for="res30-input">輸入XXX關注度數字：</label>
+            <input type="text" id="res30-input" placeholder="例如：87, 2, 11, 4, 13, 0, 0, 4, 0, 0">
+            <button id="calculate-btn">計算</button>
+            <div id="result" class="result"></div>
+        </div>
+
+
+        <h2>✅Part3: 其他分析</h2>
+        <div class="block">
+            <h3>📌請上傳XXXExcel檔案</h3>
+            <input type="file" id="uploadExcel" accept=".xlsx, .xls">
+            <button id="analyzeButton">分析檔案</button>
+            <select id="optionSelectExcel">
+                <option value="H">解釋生成</option>
+
+            </select>
+            <div id="excelContent" class="response"></div>
+            <div id="loadingExcel" class="loading">載入中...</div>
+        </div>
+
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

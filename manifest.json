@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "聯合報策展小幫手_二版",
+    "version": "1.0",
+    "description": "聯合報策展小幫手",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "<all_urls>",
+        "tabs" 
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_page": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "web_accessible_resources": [
+      "libs/xlsx.full.min.js"
+    ]
+}
